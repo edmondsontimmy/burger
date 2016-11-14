@@ -1,20 +1,26 @@
 var express = require('express');
-var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var path = require('path')
+var app = express();
+
+var PORT = process.env.PORT || 3000;
+
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
+
+app.use(methodOverride('_method'))
+var exphbs = require('express-handlebars');
+app.engine('hbs', exphbs({
+    defaultLayout: 'main'
+}));
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+
+var routes = require('./controllers/burgers_controller.js');
+app.use('/', routes);
 
 
-var app = express(); 
-var PORT = process.env.PORT || 80; 
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.text());
-app.use(bodyParser.json({type:'application/vnd.api+json'}));
-
-// require('./app/routing/api-routes.js')(app); 
-// require('./app/routing/html-routes.js')(app);
-
-app.listen(PORT, function() {
-	console.log("App listening on PORT: " + PORT);
-});
+app.listen(PORT);

@@ -1,0 +1,44 @@
+<div class="jumbotron container text-center">
+  <h1>burger time!</h1>
+</div>
+<div class="col-md-4">
+  <h2 class="text-center">Add a burger!</h2>
+
+
+  <form class="col-md-12" action="/burger/add" method="POST">
+    <div class="col-md-11 col-md-offset-1 text-center" style="margin-top:15px">
+        <label for="burger">Enter your burger!</label>
+        <input type="text" id="burger" name="user_burger" required>
+    </div>
+  </form>
+</div>
+
+<div class="col-md-4">
+  <h2 class="text-center">Your burgers!</h2>
+  <div class="col-md-12 text-center">
+      {{#each burger}}
+        {{#unless this.devoured}}
+          <form class="col-md-12" action="/burger/update/{{this.id}}?_method=PUT" method="POST">
+          <div class="burger_name" style="font-size: 14pt; padding: 10px">{{this.burger_name}}
+          </div>
+          <button class="btn btn-primary btn-xs" type="submit"><img src="https://irp-cdn.multiscreensite.com/126e59b9/dms3rep/multi/mobile/burger10-256x256.png" alt="" style="max-width: 50px" /></button>
+          </form>
+        {{/unless}}
+      {{/each}}
+  </div>
+</div>
+
+<div class="col-md-4">
+  <h2 class="text-center">You ate!</h2>
+  <div class="col-md-12 text-center">
+    {{#each burger}}
+      {{#if this.devoured}}
+          <form class="col-md-12" action="/burger/delete/{{this.id}}?_method=PUT" method="POST">
+          <div class="burger_name" style="font-size: 14pt; padding: 10px">{{this.burger_name}}!
+          </div>
+            <button class="btn btn-primary btn-xs" type="submit"><img src="https://irp-cdn.multiscreensite.com/126e59b9/dms3rep/multi/mobile/burger10-256x256.png" alt="" style="max-width: 50px" /></button>
+          </form>
+      {{/if}}
+    {{/each}}
+  </div>
+</div>
