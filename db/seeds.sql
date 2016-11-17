@@ -1,2 +1,2 @@
-insert into burgers_tbl(burger_name) values ('five_guys');
-  insert into burgers_tbl(burger_name) values ('cookout');
+INSERT INTO burgers (burger_name) VALUES ('cookout');
+INSERT INTO burgers (burger_name) VALUES ('five_guys');
